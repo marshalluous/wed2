@@ -1,0 +1,22 @@
+<div>
+    <div>
+        <span>Von</span>
+        <span>{{result.from}}</span>
+    </div>
+    <div>
+        <span>Bis</span>
+        <span>{{result.to}}</span>
+    </div>
+    <div>
+        <span>Anzahl</span>
+        <span>{{result.quantity}}</span>
+    </div>
+</div>
+
+<ol>
+    {{#each result.list}}
+        <li class="result">
+            {{this}}
+        </li>
+    {{/each}}
+</ol>
