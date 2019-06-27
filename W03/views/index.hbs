@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+</head>
+<body>
+<div class="createandstyle">
+    <form action="http://localhost:3000/notes/new" method="get">
+        <input type="submit" value="Create new Note" />
+    </form>
+        <button>BlackWhite-Style</button>
+</div>
+<div class="filtersandfinished">
+    <div class="filters">
+        <button>By finish Date</button>
+        <button>By created Date</button>
+        <button>By Importance</button>
+    </div>
+    <div class="finished">
+        <button>Show finished</button>
+    </div>
+</div>
+{{#each notes}}
+<div class="note">
+    <div>
+        <div class="note">
+            <div>
+                <label>{{due}}</label>
+                <label>{{notetitle}}</label>
+            </div>
+            <label>{{stars}}</label>
+        </div>
+        <div class="note">
+            <input type="checkbox" {{#if isChecked}}checked{{/if}}>Finished</input>
+            <textarea>{{notetext}}</textarea>
+        </div>
+    </div>
+    <button>Edit</button>
+</div>
+{{/each}}
+</body>
+</html>

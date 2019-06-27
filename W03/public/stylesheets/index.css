@@ -1,0 +1,22 @@
+.createandstyle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.filtersandfinished {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filters {
+}
+
+.note {
+    display: flex;
+    justify-content: space-between;
+}
+
+.noteentry {
+    display: flex;
+}

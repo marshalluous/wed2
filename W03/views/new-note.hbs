@@ -15,5 +15,7 @@
     <textarea>datumtext</textarea>
     <button>Kalender</button>
 </div>
-<button>Speichern</button>
-<button>Cancel</button>
+<form action="http://localhost:3000/notes" method="put">
+    <input type="submit" value="Speichern" />
+    <a href="http://localhost:3000" class="cancelbutton"> Cancel </a>
+</form>
