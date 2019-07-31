@@ -1,27 +1,64 @@
 const dataContext = require('../services/note-handler');
-var note = require('../services/note');
+const Note = require('../services/note');
 
-module.exports.insertNote = function(obj, c) {
-    let note = new note.Note(obj.title,'','','');
-    dataContext.insert(obj, (newDoc) => {
-        c(newDoc);
-    })
+function showIndex(req, res, next) {
+    dataContext.all((err, found) => {
+        if (err) {
+            console.log("Database error: ", err);
+            next(err);
+        } else
+            res.render('index.hbs', {
+                title: 'index',
+                notes: found
+            });
+    });
+
 };
 
-module.exports.updateNote = function(oldDoc, newDoc, callback) {
+function newNote(req, res, next) {
+    res.render('new-note.hbs', {});
+};
+
+
+function getNote(req, res, next) {
+    dataContext.findOne({_id: req.params.id}, (err, note) => {
+        if (err) {
+            console.log("Database error: ", err);
+            next(err);
+        } else
+            res.render('note.hbs', note);
+    });
+};
+
+function putNote(req, res, next) {
+    insertNote(req.body,
+        (newDoc) => res.redirect(`/notes/${newDoc._id}`),
+        next);
+};
+
+function postNote(req, res, next) {
+    insertNote(req.body,
+        (newDoc) => res.redirect(`/notes/${newDoc._id}`),
+        next);
+};
+
+
+
+function insertNote(obj, callback, next) {
+    let note = new Note(obj.title,'','','');
+    dataContext.insert(note, (err, newDoc) => {
+        if (err) {
+            console.log("Database error: ", err);
+            next(err);
+        } else
+            callback(newDoc);
+    });
+};
+
+function updateNote(oldDoc, newDoc, callback) {
     dataContext.update(oldDoc, newDoc, (num) => {
         callback(num);
-    })
+    });
 };
 
-module.exports.findNote = function(param, callback) {
-    dataContext.findOne(param, (found) => {
-        callback(found);
-    })
-};
-
-module.exports.findAll = function() {
-    var list;
-    dataContext.all((found) => {list = found;});
-    return list;
-};
+module.exports = {showIndex, getNote, newNote, putNote, postNote };

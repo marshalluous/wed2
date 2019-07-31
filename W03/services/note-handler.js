@@ -1,47 +1,24 @@
 const nedb = require('nedb');
 var db = new nedb();
 
-module.exports.insert = function(doc, callback) {
-    db.insert(doc, (err, newDoc) => {
-        if (err)
-            throw new Error(err);
-        else
-            callback(newDoc);
-    });
+function insert(doc, callback) {
+    db.insert(doc, callback);
 };
 
-module.exports.findOne = function(findParam, callback) {
-  db.findOne(findParam, (err, foundDoc) => {
-      if (err)
-          throw new Error(err);
-      else
-          callback(foundDoc);
-  });
+function findOne(findParam, callback) {
+  db.findOne(findParam, callback);
 };
 
-module.exports.find = function(findParam, callback) {
-    db.find(findParam, (err, found) => {
-        if (err)
-            throw new Error(err);
-        else
-            callback(found);
-    });
+function find(findParam, callback) {
+    db.find(findParam, callback);
 };
 
-module.exports.all = function(callback) {
-    db.find({}, (err, docs) => {
-        if (err)
-            throw new Error(err);
-        else
-            callback(docs);
-    });
+function all(callback) {
+    db.find({}, callback);
 };
 
-module.exports.update = function(oldDoc, newDoc, callback) {
-    db.update(oldDoc, newDoc, (err, numReplaced) => {
-        if (err)
-            throw new Error(err);
-        else
-            callback(numReplaced);
-    });
+function update(oldDoc, newDoc, callback) {
+    db.update(oldDoc, newDoc, callback);
 };
+
+module.exports = {insert, findOne, find, all, update};
